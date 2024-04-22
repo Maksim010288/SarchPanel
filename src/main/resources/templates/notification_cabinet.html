@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NOTIFICATION</title>
+    <link rel="icon" href="/images/craftgruzfoto.jpg">
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+        }
+        .sub-nav{
+            margin: 0 0 40px 0;
+            padding: 10px;
+            border-radius: 20px;
+            border-style: none;
+            background-color: darkcyan;
+            color: white;
+        }
+        #panel_control{
+            height: 800px;
+            background-image: url("/images/22.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            padding: 20px 0 0 10px;
+
+        }
+
+        .td {
+            padding: 10px;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            text-align: center;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+<div id="panel_control">
+    <form action="/clients/search">
+        <input class="sub-nav" type="submit" value="ПОШУК">
+    </form>
+    <table style=" width: 100%; border: 1px solid black;">
+        <thead style="background: lightskyblue;">
+        <tr style="border: 1px solid black">
+            <th>№ П/П</th>
+            <th>ІМЯ</th>
+            <th>НОМЕР ТЕЛЕФОНА</th>
+            <th>ЕЛЕКТРОННА АДРЕСА</th>
+            <th>ПУНКТ ВІДПРАВКИ</th>
+            <th>ПУНКТ ПРИЗНАЧЕННЯ</th>
+            <th>ВАГА</th>
+            <th>ДАТА ВІДПРАКИ ПОВІДОМЛЕННЯ</th>
+            <th>ЧАС ВІДПРАВКИ ПОВІДОМЛЕННЯ</th>
+        </tr>
+        </thead>
+        <tr th:each="clients : ${clientsAll}">
+            <td class="td">*</td>
+            <td class="td" th:text="${clients.getName().toUpperCase()}"></td>
+            <td class="td" th:text="${clients.getPhone()}"></td>
+            <td class="td" th:text="${clients.getEmail()}"></td>
+            <td class="td" th:text="${clients.getDeparture().toUpperCase()}"></td>
+            <td class="td" th:text="${clients.getImportance().toUpperCase()}"></td>
+            <td class="td" th:text="${clients.getWeight()}"></td>
+            <td class="td" th:text="${clients.getDate()}"></td>
+            <td class="td" th:text="${clients.getTime()}"></td>
+        </tr>
+    </table>
+</div>
+<p th:text="${messageExeptionClientAll}"></p>
+<p th:text="${emptyList}"></p>
+</body>
+</html>
