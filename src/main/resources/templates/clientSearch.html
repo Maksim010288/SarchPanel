@@ -10,13 +10,14 @@
             overflow: hidden;
         }
 
-        .sub-nav{
-            margin: 0 0 40px 0;
+        .sub-nav {
+            margin: 0 0 40px 20px;
             padding: 10px;
             border-radius: 20px;
             border-style: none;
             background-color: darkcyan;
             color: white;
+            float: left;
         }
 
         .panel_control {
@@ -25,21 +26,27 @@
             background-image: url("/images/22.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
-            padding:  20px 0 0 10px;
+            padding: 20px 0 0 10px;
             overflow: scroll;
         }
 
-        .panel_control h1 {
+        .search_panel{
+            position: absolute;
+            left: 0;
+            top:15%;
+        }
+
+        .search_panel h1 {
             text-align: center;
             color: azure;
         }
 
         .preview-label, .search-tag-desc-result {
             position: relative;
-            left: 33%;
+            left: 36%;
         }
 
-        .search-tag-desc-result{
+        .search-tag-desc-result {
             padding: 10px;
             border-style: none;
             background-color: darkcyan;
@@ -61,47 +68,51 @@
     <form action="/clients/">
         <input class="sub-nav" type="submit" value="ВИВЕСТИ ВСЕ">
     </form>
-
-    <form action="/clients/search/by" method="get">
-        <h1>Пошук обєктів</h1>
-        <label class="preview-label">
-            <input type="text" name="value"
-                   placeholder="ВВЕДІТЬ ІНФОРМАЦІЮ ДЛЯ ПОШУКУ"
-                   title="Вся інформація яка вводиться в поле має бути в нижньому регістрі"
-                   style="padding:  0 10px 0 10px">
-            <input class="inpNum" type="date" name="date">
-        </label>
-        <input class="search-tag-desc-result" type="submit" value="ЗНАЙТИ">
-
-        <table style=" width: 98%; border: 1px solid black;">
-            <thead style="background: lightskyblue;">
-            <tr style="border: 1px solid black">
-                <th>№ П/П</th>
-                <th>ІМЯ</th>
-                <th>НОМЕР ТЕЛЕФОНА</th>
-                <th>ЕЛЕКТРОННА АДРЕСА</th>
-                <th>ПУНКТ ВІДПРАВКИ</th>
-                <th>ПУНКТ ПРИЗНАЧЕННЯ</th>
-                <th>ВАГА</th>
-                <th>ДАТА ВІДПРАКИ ПОВІДОМЛЕННЯ</th>
-                <th>ЧАС ВІДПРАВКИ ПОВІДОМЛЕННЯ</th>
-            </tr>
-            </thead>
-            <tr th:each="clientsByName : ${clientsBy}">
-                <td class="td">*</td>
-                <td class="td" th:text="${clientsByName.getName().toUpperCase()}"></td>
-                <td class="td" th:text="${clientsByName.getPhone()}"></td>
-                <td class="td" th:text="${clientsByName.getEmail()}"></td>
-                <td class="td" th:text="${clientsByName.getDeparture().toUpperCase()}"></td>
-                <td class="td" th:text="${clientsByName.getImportance().toUpperCase()}"></td>
-                <td class="td" th:text="${clientsByName.getWeight()}"></td>
-                <td class="td" th:text="${clientsByName.getDate()}"></td>
-                <td class="td" th:text="${clientsByName.getTime()}"></td>
-            </tr>
-        </table>
+    <form action="/order/" method="get">
+        <input class="sub-nav" type="submit" value="ЗАМОВЛЕНІ ДЗВІНКИ">
     </form>
-    <p th:text="${not_found}"></p>
-    <p th:text="${messageException}"></p>
+    <div class="search_panel">
+        <form action="/clients/search/by" method="get">
+            <h1>Пошук обєктів</h1>
+            <label class="preview-label">
+                <input type="text" name="value"
+                       placeholder="ВВЕДІТЬ ІНФОРМАЦІЮ ДЛЯ ПОШУКУ"
+                       title="Вся інформація яка вводиться в поле має бути в нижньому регістрі"
+                       style="padding:  0 10px 0 10px">
+                <input class="inpNum" type="date" name="date">
+            </label>
+            <input class="search-tag-desc-result" type="submit" value="ЗНАЙТИ">
+
+            <table style=" width: 98%; border: 1px solid black;">
+                <thead style="background: lightskyblue;">
+                <tr style="border: 1px solid black">
+                    <th>№ П/П</th>
+                    <th>ІМЯ</th>
+                    <th>НОМЕР ТЕЛЕФОНА</th>
+                    <th>ЕЛЕКТРОННА АДРЕСА</th>
+                    <th>ПУНКТ ВІДПРАВКИ</th>
+                    <th>ПУНКТ ПРИЗНАЧЕННЯ</th>
+                    <th>ВАГА</th>
+                    <th>ДАТА ВІДПРАКИ ПОВІДОМЛЕННЯ</th>
+                    <th>ЧАС ВІДПРАВКИ ПОВІДОМЛЕННЯ</th>
+                </tr>
+                </thead>
+                <tr th:each="clientsByName : ${clientsBy}">
+                    <td class="td">*</td>
+                    <td class="td" th:text="${clientsByName.getName().toUpperCase()}"></td>
+                    <td class="td" th:text="${clientsByName.getPhone()}"></td>
+                    <td class="td" th:text="${clientsByName.getEmail()}"></td>
+                    <td class="td" th:text="${clientsByName.getDeparture().toUpperCase()}"></td>
+                    <td class="td" th:text="${clientsByName.getImportance().toUpperCase()}"></td>
+                    <td class="td" th:text="${clientsByName.getWeight()}"></td>
+                    <td class="td" th:text="${clientsByName.getDate()}"></td>
+                    <td class="td" th:text="${clientsByName.getTime()}"></td>
+                </tr>
+            </table>
+        </form>
+        <p th:text="${message}"></p>
+        <p th:text="${messageException}"></p>
+    </div>
 </div>
 </body>
 </html>

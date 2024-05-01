@@ -10,12 +10,13 @@
             overflow: hidden;
         }
         .sub-nav{
-            margin: 0 0 40px 0;
+            margin: 0 0 40px 20px;
             padding: 10px;
             border-radius: 20px;
             border-style: none;
             background-color: darkcyan;
             color: white;
+            float: left;
         }
         #panel_control{
             height: 800px;
@@ -39,6 +40,9 @@
 <div id="panel_control">
     <form action="/clients/search">
         <input class="sub-nav" type="submit" value="ПОШУК">
+    </form>
+    <form action="/order/" method="get">
+        <input class="sub-nav" type="submit" value="ЗАМОВЛЕНІ ДЗВІНКИ">
     </form>
     <table style=" width: 100%; border: 1px solid black;">
         <thead style="background: lightskyblue;">
@@ -68,6 +72,5 @@
     </table>
 </div>
 <p th:text="${messageExeptionClientAll}"></p>
-<p th:text="${emptyList}"></p>
 </body>
 </html>

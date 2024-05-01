@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,37 +34,21 @@ public class ClientsService {
     }
 
     public List<ClientsEntity> getAll() {
-        List<ClientsEntity> clientsEntities = new ArrayList<>();
-        clientsEntities.addAll(clientsRepository.findAll());
-        return clientsEntities;
+        return new ArrayList<>(clientsRepository.findAll());
     }
 
     public List<ClientsEntity> findBy(String value) {
-       return clientsRepository.findAll().stream()
-                .filter(entity -> entity.getName().equals(value.toLowerCase()) ||
-                        entity.getDeparture().contains(value.toLowerCase()) ||
-                        entity.getImportance().contains(value.toLowerCase()) ||
-                        entity.getWeight().contains(value) ||
+        return clientsRepository.findAll().stream()
+                .filter(entity -> entity.getName().contains(value) ||
+                        entity.getDeparture().equals(value.toLowerCase()) ||
+                        entity.getImportance().equals(value.toLowerCase()) ||
+                        entity.getWeight().equals(value) ||
                         entity.getTime().contains(value) ||
                         entity.getDate().contains(value))
                 .collect(Collectors.toList());
-
     }
 
-
-    public String check(String value){
-        for (ClientsEntity entity : clientsRepository.findAll()){
-            if (entity.getName().equals(value.toLowerCase()) ||
-                    entity.getDeparture().contains(value.toLowerCase()) ||
-                    entity.getImportance().contains(value.toLowerCase()) ||
-                    entity.getWeight().contains(value) ||
-                    entity.getTime().contains(value) ||
-                    entity.getDate().contains(value)){
-                return "";
-            }
-        }
-        return "Елемент не знайдено";
+    public List<ClientsEntity> findByName(String value){
+        return clientsRepository.findByDeparture(value);
     }
-
-
 }
