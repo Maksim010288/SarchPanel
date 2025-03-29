@@ -5,19 +5,22 @@
     <title>NOTIFICATION</title>
     <link rel="icon" href="/images/craftgruzfoto.jpg">
     <style>
-        body{
+        body {
             margin: 0;
             overflow: hidden;
         }
-        .sub-nav{
-            margin: 0 0 40px 0;
+
+        .sub-nav {
+            margin: 0 0 40px 20px;
             padding: 10px;
             border-radius: 20px;
             border-style: none;
             background-color: darkcyan;
             color: white;
+            float: left;
         }
-        #panel_control{
+
+        #panel_control {
             height: 800px;
             background-image: url("/images/22.jpg");
             background-repeat: no-repeat;
@@ -37,8 +40,15 @@
 </head>
 <body>
 <div id="panel_control">
+    <input type="checkbox" class="check">
     <form action="/clients/search">
         <input class="sub-nav" type="submit" value="ПОШУК">
+    </form>
+    <form action="/order/" method="get">
+        <input class="sub-nav" type="submit" value="ЗАМОВЛЕНІ ДЗВІНКИ">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input class="sub-nav" type="submit" value="ВИЙТИ">
     </form>
     <table style=" width: 100%; border: 1px solid black;">
         <thead style="background: lightskyblue;">
@@ -68,6 +78,6 @@
     </table>
 </div>
 <p th:text="${messageExeptionClientAll}"></p>
-<p th:text="${emptyList}"></p>
+<script src="/js/restartPage.js"></script>
 </body>
 </html>

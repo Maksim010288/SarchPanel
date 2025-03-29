@@ -1,6 +1,7 @@
 package com.tmCraftgruz.SearchPanel.controller;
 
 import com.tmCraftgruz.SearchPanel.service.ClientsService;
+import com.tmCraftgruz.SearchPanel.service.OrderCellService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,15 +18,17 @@ public class ClientController {
     @Autowired
     private ClientsService clientsService;
 
+    @Autowired
+    private OrderCellService orderCellService;
+
+
     @GetMapping("/")
     public String getClientsAll(Model model) {
         try {
             model.addAttribute("clientsAll", clientsService.getAll());
-            if (clientsService.getAll().isEmpty()) {
-                model.addAttribute("emptyList", "Пусто");
-            }
         } catch (Exception e) {
-            model.addAttribute("messageExeptionClientAll", "ПОМИЛКА ЗЄДНАННЯ ВИБАЧТЕ ЗА НЕЗРУЧНОСТІ");
+            model.addAttribute("messageExceptionClientAll",
+                    "ПОМИЛКА ЗЄДНАННЯ ВИБАЧТЕ ЗА НЕЗРУЧНОСТІ");
             LOGGER.error(e.getMessage());
         }
         return "notification_cabinet";
@@ -37,15 +40,17 @@ public class ClientController {
     }
 
     @GetMapping("/search/by")
-    public String findBy(@RequestParam(defaultValue = "0") String value,
-                         @RequestParam(defaultValue = "0") String date,
-                         Model model) {
+    public String findBy(@RequestParam(defaultValue = "0") String value, Model model) {
         try {
+            if (clientsService.findBy(value).isEmpty()){
+                model.addAttribute("message", "НЕ ЗНАЙДЕНО");
+            }
             model.addAttribute("clientsBy", clientsService.findBy(value));
-            model.addAttribute("not_found", clientsService.check(value));
         } catch (Exception e) {
             LOGGER.trace(e.getMessage());
-            model.addAttribute("messageException", "Виникла помилка підключення!!! вибачте за незручності");
+            model.addAttribute(
+                    "messageException",
+                    "Виникла помилка підключення!!! вибачте за незручності");
         }
         return "clientSearch";
     }

@@ -1,9 +1,14 @@
 .idea
 .mvn
+<<<<<<< HEAD
 src/main/resources/application.properties
+=======
+src/main/resources/application.yaml
+>>>>>>> searchpanel
 target
 HELP.md
 mvnw
 mvnw.cmd
 SearchPanel.iml
 test
+search-panel-backend.txt

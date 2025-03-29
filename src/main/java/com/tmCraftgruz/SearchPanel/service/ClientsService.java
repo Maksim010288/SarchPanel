@@ -4,13 +4,14 @@ package com.tmCraftgruz.SearchPanel.service;
 import com.tmCraftgruz.SearchPanel.entity.ClientsEntity;
 import com.tmCraftgruz.SearchPanel.model.MessageSenderModel;
 import com.tmCraftgruz.SearchPanel.repository.ClientRepository;
+import com.tmCraftgruz.SearchPanel.repository.OrderCellRepository;
+import com.tmCraftgruz.SearchPanel.soung.MusicPlayer;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,9 @@ public class ClientsService {
 
     @Autowired
     private ClientRepository clientsRepository;
+
+    @Autowired
+    private OrderCellRepository orderCellRepository;
 
     public void add(MessageSenderModel messageSenderModel) {
         ClientsEntity clientsEntity = new ClientsEntity(
@@ -35,37 +39,17 @@ public class ClientsService {
     }
 
     public List<ClientsEntity> getAll() {
-        List<ClientsEntity> clientsEntities = new ArrayList<>();
-        clientsEntities.addAll(clientsRepository.findAll());
-        return clientsEntities;
+        return new ArrayList<>(clientsRepository.findAll());
     }
 
     public List<ClientsEntity> findBy(String value) {
-       return clientsRepository.findAll().stream()
-                .filter(entity -> entity.getName().equals(value.toLowerCase()) ||
-                        entity.getDeparture().contains(value.toLowerCase()) ||
-                        entity.getImportance().contains(value.toLowerCase()) ||
-                        entity.getWeight().contains(value) ||
+        return clientsRepository.findAll().stream()
+                .filter(entity -> entity.getName().contains(value) ||
+                        entity.getDeparture().equals(value.toLowerCase()) ||
+                        entity.getImportance().equals(value.toLowerCase()) ||
+                        entity.getWeight().equals(value) ||
                         entity.getTime().contains(value) ||
                         entity.getDate().contains(value))
                 .collect(Collectors.toList());
-
     }
-
-
-    public String check(String value){
-        for (ClientsEntity entity : clientsRepository.findAll()){
-            if (entity.getName().equals(value.toLowerCase()) ||
-                    entity.getDeparture().contains(value.toLowerCase()) ||
-                    entity.getImportance().contains(value.toLowerCase()) ||
-                    entity.getWeight().contains(value) ||
-                    entity.getTime().contains(value) ||
-                    entity.getDate().contains(value)){
-                return "";
-            }
-        }
-        return "Елемент не знайдено";
-    }
-
-
 }
