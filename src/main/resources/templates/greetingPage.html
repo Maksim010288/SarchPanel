@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GREETING</title>
+    <style>
+        body{
+            background-image: url("../static/images/fon12.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        .sub-nav{
+            margin: 20px 0 40px 20px;
+            padding: 10px;
+            border-radius: 20px;
+            border-style: none;
+            background-color: darkcyan;
+            color: white;
+            float: left;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <form action="/clients/search" method="get">
+            <button class="sub-nav" type="submit">On main</button>
+        </form>
+        <form action="/user/delete" method="post">
+            <button class="sub-nav" type="submit">Delete users</button>
+        </form>
+        <form th:action="@{/logout}" method="post">
+            <button class="sub-nav" type="submit">Вихід</button>
+        </form>
+    </div>
+</body>
+</html>

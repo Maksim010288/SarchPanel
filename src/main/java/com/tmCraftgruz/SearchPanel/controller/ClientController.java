@@ -1,8 +1,7 @@
 package com.tmCraftgruz.SearchPanel.controller;
 
-import com.tmCraftgruz.SearchPanel.repository.ClientRepository;
 import com.tmCraftgruz.SearchPanel.service.ClientsService;
-import org.apache.log4j.Level;
+import com.tmCraftgruz.SearchPanel.service.OrderCellService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +18,17 @@ public class ClientController {
     @Autowired
     private ClientsService clientsService;
 
+    @Autowired
+    private OrderCellService orderCellService;
+
+
     @GetMapping("/")
     public String getClientsAll(Model model) {
         try {
             model.addAttribute("clientsAll", clientsService.getAll());
         } catch (Exception e) {
-            model.addAttribute("messageExeptionClientAll", "ПОМИЛКА ЗЄДНАННЯ ВИБАЧТЕ ЗА НЕЗРУЧНОСТІ");
+            model.addAttribute("messageExceptionClientAll",
+                    "ПОМИЛКА ЗЄДНАННЯ ВИБАЧТЕ ЗА НЕЗРУЧНОСТІ");
             LOGGER.error(e.getMessage());
         }
         return "notification_cabinet";
@@ -44,7 +48,9 @@ public class ClientController {
             model.addAttribute("clientsBy", clientsService.findBy(value));
         } catch (Exception e) {
             LOGGER.trace(e.getMessage());
-            model.addAttribute("messageException", "Виникла помилка підключення!!! вибачте за незручності");
+            model.addAttribute(
+                    "messageException",
+                    "Виникла помилка підключення!!! вибачте за незручності");
         }
         return "clientSearch";
     }

@@ -1,9 +1,10 @@
 .idea
 .mvn
-src/main/resources/application.properties
+src/main/resources/application.yaml
 target
 HELP.md
 mvnw
 mvnw.cmd
 SearchPanel.iml
 test
+search-panel-backend.txt

@@ -71,6 +71,9 @@
     <form action="/order/" method="get">
         <input class="sub-nav" type="submit" value="ЗАМОВЛЕНІ ДЗВІНКИ">
     </form>
+    <form th:action="@{/logout}" method="post">
+        <input class="sub-nav" type="submit" value="ВИХІД">
+    </form>
     <div class="search_panel">
         <form action="/clients/search/by" method="get">
             <h1>Пошук обєктів</h1>

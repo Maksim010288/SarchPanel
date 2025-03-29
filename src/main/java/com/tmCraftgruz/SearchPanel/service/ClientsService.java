@@ -4,6 +4,8 @@ package com.tmCraftgruz.SearchPanel.service;
 import com.tmCraftgruz.SearchPanel.entity.ClientsEntity;
 import com.tmCraftgruz.SearchPanel.model.MessageSenderModel;
 import com.tmCraftgruz.SearchPanel.repository.ClientRepository;
+import com.tmCraftgruz.SearchPanel.repository.OrderCellRepository;
+import com.tmCraftgruz.SearchPanel.soung.MusicPlayer;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ClientsService {
 
     @Autowired
     private ClientRepository clientsRepository;
+
+    @Autowired
+    private OrderCellRepository orderCellRepository;
 
     public void add(MessageSenderModel messageSenderModel) {
         ClientsEntity clientsEntity = new ClientsEntity(
@@ -46,9 +51,5 @@ public class ClientsService {
                         entity.getTime().contains(value) ||
                         entity.getDate().contains(value))
                 .collect(Collectors.toList());
-    }
-
-    public List<ClientsEntity> findByName(String value){
-        return clientsRepository.findByDeparture(value);
     }
 }
